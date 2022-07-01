@@ -1,0 +1,48 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      material2 "db"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.2815330683244083 0.12891418267845134 -0.9508523886199113 2.275191349779839
+  position 2.1435266525263756 2.6679570854614636 2.0838564686947127
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 0 -0.05
+  floorSize 5 5
+}
+Robot {
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance Appearance {
+          }
+          geometry Box {
+            size 0.1 0.1 0.1
+          }
+        }
+      ]
+    }
+  ]
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+  }
+  controller "MyNewController"
+  supervisor TRUE
+}
+BoxBot {
+  translation 0 0.34 0
+}

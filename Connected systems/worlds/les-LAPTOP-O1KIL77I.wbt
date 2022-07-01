@@ -1,0 +1,63 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      material2 "db"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.31529339282387037 0.730499814479209 -0.6057723148902183 1.1970628707778375
+  position -1.8249939323239543 0.16501842667862565 2.4113793807343935
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 0 -0.17
+  floorSize 5 5
+}
+Solid {
+  translation 0.154426 -0.194659 0.413673
+  rotation 0.12343643803384956 -0.989664949362859 0.07298447621327178 1.834896113022004
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0 0
+          emissiveColor 0 1 0
+          shininess 1
+          specularColor 0 1 0
+        }
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  contactMaterial "db"
+  boundingObject Sphere {
+    radius 0.1
+  }
+  physics Physics {
+    mass 1
+  }
+}
+E-puck {
+  translation 0.225546 -0.252344 -0.170247
+  rotation -0.0003435638731887113 -0.011602395717492822 -0.9999326309194434 -0.114155307179586
+}
+Robot {
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0
+        metalness 0
+      }
+    }
+  ]
+}

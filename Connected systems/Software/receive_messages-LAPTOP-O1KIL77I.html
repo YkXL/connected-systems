@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Websockets client</title>
+</head>
+<body>
+<script>
+function get_data() {
+    ws.send("request_messages");
+}
+let ws = new WebSocket("ws://localhost:8000");
+ws.onmessage = function(message) {
+    document.getElementById('text').innerText = message.data;
+}
+setInterval(get_data, 1000);
+</script>
+<div id='text'></div>
+</body>
+</html>

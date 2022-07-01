@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.5
+protoFileHash: 35477e5f581fe3ae4965d06c72d29138
+needsRobotAncestor: 1
+baseType: DistanceSensor
+slotType: 
+parameters: name,translation,rotation,type
+tags: 
+license: 
+licenseUrl: 
+documentationUrl: 
+info: VRML_SIM\s\sR2020a\s\sutf8

@@ -1,0 +1,25 @@
+#VRML_SIM  R2020a  utf8
+PROTO SimpleSensor [
+  field SFString name "dave"
+  field SFVec3f translation 1 0 0
+  field SFRotation rotation 0 0 0 0
+  field SFString type "infra-red"
+]
+{
+  DistanceSensor {
+    translation  IS  translation
+    rotation IS rotation
+    type IS type
+    children [
+      Shape {
+        appearance  Appearance {
+          material  Material {
+            diffuseColor 0.5 0.5 0.5
+           }
+          }
+            geometry Box{size 0.01 0.01 0.01}
+        }
+      ]
+      name IS name
+    }
+}

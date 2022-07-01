@@ -1,0 +1,74 @@
+PROTO  Yellow [
+field  SFString  name "Geel"
+field  SFColor  color 1 1 0
+field  SFVec3f  translation 1 0 0.05
+field  SFBool supervisor TRUE
+field  SFString controller "MyNewController"
+]
+{
+Robot {
+translation  IS  translation
+name IS name
+supervisor IS supervisor
+controller IS controller
+
+
+children [
+  Solid{
+    children[
+      SimpleLED{
+      name "LEDAchter"
+      translation 0 0.02 0.05
+      color 0 1 0
+      }
+      SimpleLED{
+      name "LEDVoor"
+      translation 0 -0.02 0.05
+      color 0 1 0
+      }
+      SimpleLED{
+      name "LEDLinks"
+      translation  0.02 0 0.05
+      color 0 1 0
+      }
+      SimpleLED{
+      name "LEDRechts"
+      translation  -0.02 0 0.05
+      color 0 1 0
+      }
+      
+      SimpleSensor{
+      name "sensorLinks"
+      translation 0.04 0.01 0
+      rotation 0 0 1 0
+      type "infra-red"
+      }
+      SimpleSensor{
+      name "sensorAchter"
+      translation 0.01 0.045 0
+      rotation 0 0 1 1.6
+      type "infra-red"
+      }
+      SimpleSensor{
+      name "sensorRechts"
+      translation -0.04 0.01 0
+      rotation 0 0 1 3.1
+      type "infra-red"
+      }
+      SimpleSensor{
+      name "sensorVoor"
+      translation 0.01 -0.04 0
+      rotation 0 0 1 4.6
+      type "infra-red"
+      }
+      
+      
+      Shape{
+        appearance Appearance {
+          material Material { diffuseColor IS color }
+        }
+        geometry Box{size 0.1 0.1 0.1}
+      }]
+    }]
+  }
+}

@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.5
+protoFileHash: 791cab5ee9439774eb45ac8081b5c176
+needsRobotAncestor: 1
+baseType: LED
+slotType: 
+parameters: name,color,translation
+tags: 
+license: 
+licenseUrl: 
+documentationUrl: 
+info: VRML_SIM\s\sR2020a\s\sutf8
