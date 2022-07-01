@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Server-sent events client</title>
+</head>
+<body>
+<script>
+    let evtSource = new EventSource("http://localhost:8000/messages");
+    evtSource.onmessage = function(message) {
+        document.getElementById('text').innerText = message.data;
+    }
+</script>
+<div id='text'></div>
+</body>
+</html>
