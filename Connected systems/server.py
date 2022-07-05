@@ -15,14 +15,15 @@ firstLetter = chr(65)
 lastLetter = chr(65+rows-1)
 robots = []
 
+
 class Robot:
-    def __init__(self, currentPosition, name, destination=None, plannedPos=None ):
+    def __init__(self, currentPosition, name, destination=None, plannedPos=None):
         self.currentPosition = currentPosition
         self.destination = destination
         self.priority = nrOfRobots
         self.name = name
         self.plannedPos = plannedPos
-    
+
 
 def updateDetails(data):
     for object in range(len(data[1])):
@@ -31,7 +32,6 @@ def updateDetails(data):
                 objects.append(data[1][object][0])
     updateObjecs()
 
-    
 
 # Makes a dicionary with every adjecent nodes on the chessboard.
 for row in range(rows):
@@ -65,6 +65,7 @@ for row in range(rows):
             adjecent[currentLetter+str(column)] = [(currentLetter+str(column-1), 1), (currentLetter+str(
                 column+1), 1), (chr(ord(currentLetter)+1)+str(column), 1), (chr(ord(currentLetter)-1)+str(column), 1)]
 # print(adjecent)
+
 
 def updateObjecs():
     # Every object gets a weight of 100.000
@@ -125,6 +126,8 @@ def destinationReached(name):
         if robot.name == name:
             if robot.currentPosition == robot.destination:
                 robot.destination = None
+
+
 i = 0
 speaking = False
 doorServer = False
@@ -135,45 +138,66 @@ output = []
 dataBuffer = []
 dataBuffer.append(("Rood", "F6"))
 dataBuffer.append(("Geel", "J5"))
+sendToDashboard = [("Rood", "F6"), ("Geel", "J6"),
+                   ("Blauw", "A11"), ("Groen", "C2")]
+
 
 def sendMessage(port, index):
-    s = socket.socket()
-    s.connect(("localhost", port))
-    time.sleep(1)
+    # time.sleep(1)
+    # als index meer dan 0 is, moet het naar een robot verstuur worden
+    if index > 0:
+        s = socket.socket()
+        s.connect(("localhost", port))
+        robots[index].plannedPos = dijkstra(
+            robots[index].currentPosition, robots[index].destination)
+        data = pickle.dumps(robots[index].plannedPos)
+        s.sendall(data)
+        print(robots[index].plannedPos, "verstuurd")
 
-    robots[index].plannedPos = dijkstra(robots[index].currentPosition, robots[index].destination)
 
-    data = pickle.dumps(robots[index].plannedPos)
-    s.sendall(data)
-    print(robots[index].plannedPos, "verstuurd")
+    # anders naar het dashboard
+    elif index < 0 and len(sendToDashboard) > 0:
+        s = socket.socket()
+        s.connect(("localhost", port))
+        data = pickle.dumps(sendToDashboard[0])
+        s.sendall(data)
+        print(sendToDashboard[0], "verstuurd")
+        del sendToDashboard[0]
+    
+    else:
+        s = socket.socket()
+        s.connect(("localhost", port))
+        data = pickle.dumps((None, None))
+        s.sendall(data)
 
-    s.close()
+
 
 while True:
 
     # CLIENT
     if speaking == True:
-        for index in range(len(robots)):
-            if robots[i].destination is not None:
-                sendMessage(1025+index, index)
+        sendMessage(1023, -1)
+        # for index in range(len(robots)):
+        #     if robots[i].destination is not None:
+        #         sendMessage(1025+index, index)
         speaking = False
     # SERVER
     if speaking == False:
-        port=1024
+        port = 1024
         if doorServer == False:
             s = socket.create_server(("localhost", port))
             s.listen()
             doorServer = True
         conn, addr = s.accept()
         data = pickle.loads(conn.recv(4096))
-        newRobot = True
-        for robot in robots:
-            if robot.name == data[0]:
-                newRobot == False
-        if newRobot:
-            robots[nrOfRobots] = Robot(data[2], data[0])
-            nrOfRobots += 1
-        updateDetails(data)
+        # newRobot = True
+        # for robot in robots:
+        #     if robot.name == data[0]:
+        #         newRobot == False
+        # if newRobot:
+        #     robots[nrOfRobots] = Robot(data[2], data[0])
+        #     nrOfRobots += 1
+        # updateDetails(data)
         print("ONTVANGEN:", data)
         speaking = True
         doorSpeaking = False
